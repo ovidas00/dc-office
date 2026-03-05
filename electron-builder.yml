@@ -1,0 +1,62 @@
+appId: com.electron.app
+productName: charity-ledger
+compression: maximum
+removePackageScripts: true
+electronLanguages:
+  - en-US
+directories:
+  buildResources: build
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+
+  # # remove Windows binaries
+  # - '!**/node_modules/**/win/x64/**'
+  # - '!**/node_modules/**/win/ia32/**'
+  # - '!**/node_modules/**/win/arm64/**'
+
+  # # remove macOS binaries
+  # - '!**/node_modules/**/darwin/**'
+  # - '!**/node_modules/**/*.dylib'
+  # - '!**/node_modules/**/mac/**'
+  # - '!**/node_modules/**/osx/**'
+
+  # # remove Linux binaries
+  # - '!**/node_modules/**/linux/**'
+  # - '!**/node_modules/**/*.so'
+
+# Windows build
+win:
+  executableName: charity-ledger
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+
+# Mac build
+mac:
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    - NSCameraUsageDescription: Application requests access to the device's camera.
+    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
+    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
+    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+  notarize: false
+dmg:
+  artifactName: ${name}-${version}.${ext}
+
+# Linux build
+linux:
+  target:
+    - deb
+  maintainer: https://edulife.agency
+  category: Utility
+
+npmRebuild: false
+publish:
+  provider: generic
+  url: https://edulife.agency/landlife/auto-updates
