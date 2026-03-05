@@ -1,5 +1,5 @@
 appId: com.edulife.dcoffice
-productName: dc-office
+productName: DC Office
 compression: maximum
 removePackageScripts: true
 electronLanguages:
@@ -30,7 +30,7 @@ files:
 
 # Windows build
 win:
-  executableName: dc-office
+  executableName: Dc Office
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
