@@ -121,7 +121,7 @@ export function exportToPDF({ tableData = [], columnWidths = [], outDir, fromDat
 
 export async function exportToExcel(tableData = [], outPath) {
   const workbook = new ExcelJs.Workbook()
-  const sheet = workbook.addWorksheet('Charity Applications')
+  const sheet = workbook.addWorksheet('DC Office Applications')
 
   // Add rows
   tableData.forEach((row) => sheet.addRow(row))
@@ -182,7 +182,7 @@ export async function exportToWord(tableData = [], outPath) {
   })
 
   const doc = new Document({
-    creator: 'Charity Ledger',
+    creator: 'DC Office',
     title: 'Applications',
     description: 'Exported application data',
     sections: [

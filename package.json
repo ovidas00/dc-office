@@ -1,10 +1,10 @@
 {
   "name": "dc-office",
   "version": "1.0.0",
-  "description": "An Electron application with React",
+  "description": "Charity Ledger of Khagrachari DC Office",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "edulife.agency",
+  "homepage": "https://edulife.agency",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",

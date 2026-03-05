@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: charity-ledger
+appId: com.edulife.dcoffice
+productName: dc-office
 compression: maximum
 removePackageScripts: true
 electronLanguages:
@@ -30,7 +30,7 @@ files:
 
 # Windows build
 win:
-  executableName: charity-ledger
+  executableName: dc-office
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

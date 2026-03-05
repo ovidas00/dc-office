@@ -22,7 +22,7 @@ export default function DesktopLayout({ children }) {
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
             <img src={icon} alt="Logo" />
           </div>
-          <span className="font-medium text-gray-900 text-lg">Charity Ledger</span>
+          <span className="font-medium text-gray-900 text-lg">DC Office</span>
         </div>
 
         {/* Menu Items */}

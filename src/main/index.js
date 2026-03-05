@@ -49,7 +49,7 @@ const db = getDB() // Initialize db
 // This method will be called when Electron has finished
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.edulife.charityledger')
+  electronApp.setAppUserModelId('com.edulife.dcoffice')
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
@@ -708,7 +708,7 @@ ipcMain.handle('start-backup', async (event, password = null) => {
 
   const { canceled, filePath } = await dialog.showSaveDialog({
     title: 'Save Database Backup',
-    defaultPath: join(app.getPath('downloads'), `charity-ledger-${timestamp}.7z`),
+    defaultPath: join(app.getPath('downloads'), `dc-office-${timestamp}.7z`),
     filters: [{ name: '7zip Archive', extensions: ['7z'] }]
   })
 
