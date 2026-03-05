@@ -717,17 +717,28 @@ ipcMain.handle('start-backup', async (event, password = null) => {
   try {
     if (!fs.existsSync(dbPath)) throw new Error('Database file not found.')
 
+    // temp file inside Electron temp directory
+    const tempDbPath = join(app.getPath('temp'), `dc-office-${timestamp}.db`)
+
+    // copy db to temp
+    fs.copyFileSync(dbPath, tempDbPath)
+
     const options = {
       $bin: path7za,
       password: password || undefined
     }
 
     await new Promise((resolve, reject) => {
-      const archive = Seven.add(filePath, dbPath, options)
+      const archive = Seven.add(filePath, tempDbPath, options)
 
       archive.on('end', resolve)
       archive.on('error', reject)
     })
+
+    // cleanup temp file
+    if (fs.existsSync(tempDbPath)) {
+      fs.unlinkSync(tempDbPath)
+    }
 
     return { success: true, path: filePath }
   } catch (err) {
