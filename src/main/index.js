@@ -8,6 +8,8 @@ import Seven from 'node-7z'
 import { path7za } from '7zip-bin'
 import fs from 'node:fs'
 import bcrypt from 'bcryptjs'
+import os from "node:os"
+import path from 'node:path'
 
 function createWindow() {
   // Create the browser window.
@@ -715,12 +717,15 @@ ipcMain.handle('start-backup', async (event, password = null) => {
   if (canceled || !filePath) return { success: false, canceled: true }
 
   try {
-    if (!fs.existsSync(dbPath)) throw new Error('Database file not found.')
+    if (!fs.existsSync(dbPath)) {
+      throw new Error('Database file not found.')
+    }
 
-    // temp file inside Electron temp directory
-    const tempDbPath = join(app.getPath('temp'), `dc-office-${timestamp}.db`)
+    // temp copy path
+    const tempDir = os.tmpdir()
+    const tempDbPath = path.join(tempDir, `app-backup-${timestamp}.db`)
 
-    // copy db to temp
+    // copy database to temp
     fs.copyFileSync(dbPath, tempDbPath)
 
     const options = {
@@ -735,7 +740,7 @@ ipcMain.handle('start-backup', async (event, password = null) => {
       archive.on('error', reject)
     })
 
-    // cleanup temp file
+    // delete temp file
     if (fs.existsSync(tempDbPath)) {
       fs.unlinkSync(tempDbPath)
     }
