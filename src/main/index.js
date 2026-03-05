@@ -8,8 +8,7 @@ import Seven from 'node-7z'
 import { path7za } from '7zip-bin'
 import fs from 'node:fs'
 import bcrypt from 'bcryptjs'
-import os from "node:os"
-import path from 'node:path'
+import os from 'node:os'
 
 function createWindow() {
   // Create the browser window.
@@ -717,21 +716,27 @@ ipcMain.handle('start-backup', async (event, password = null) => {
   if (canceled || !filePath) return { success: false, canceled: true }
 
   try {
-    if (!fs.existsSync(dbPath)) {
-      throw new Error('Database file not found.')
+    if (!fs.existsSync(dbPath)) throw new Error('Database file not found.')
+
+    let bin
+
+    if (app.isPackaged) {
+      const nm = path7za.indexOf('node_modules')
+      const relative = path7za.slice(nm + 'node_modules'.length + 1)
+      bin = join(process.resourcesPath, 'app.asar.unpacked', 'node_modules', relative)
+    } else {
+      bin = path7za
     }
-
-    // temp copy path
-    const tempDir = os.tmpdir()
-    const tempDbPath = path.join(tempDir, `app-backup-${timestamp}.db`)
-
-    // copy database to temp
-    fs.copyFileSync(dbPath, tempDbPath)
 
     const options = {
-      $bin: path7za,
+      $bin: bin,
       password: password || undefined
     }
+
+    const tempDir = join(os.tmpdir(), `backup-temp-${Date.now()}`)
+    fs.mkdirSync(tempDir, { recursive: true })
+    const tempDbPath = join(tempDir, 'app.db')
+    fs.copyFileSync(dbPath, tempDbPath)
 
     await new Promise((resolve, reject) => {
       const archive = Seven.add(filePath, tempDbPath, options)
@@ -739,11 +744,6 @@ ipcMain.handle('start-backup', async (event, password = null) => {
       archive.on('end', resolve)
       archive.on('error', reject)
     })
-
-    // delete temp file
-    if (fs.existsSync(tempDbPath)) {
-      fs.unlinkSync(tempDbPath)
-    }
 
     return { success: true, path: filePath }
   } catch (err) {

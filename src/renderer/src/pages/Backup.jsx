@@ -14,7 +14,7 @@ export default function BackupPage() {
       const res = await window.api.startBackup(password)
 
       if (res.success) {
-        showSuccess(`Backup saved successfully at ${res.filePath}`)
+        showSuccess(`Backup saved successfully at ${res.path}`)
         setPassword('')
       } else {
         showError(res.error || 'Backup failed')
