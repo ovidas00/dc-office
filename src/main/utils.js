@@ -44,12 +44,12 @@ export function exportToPDF({ tableData = [], columnWidths = [], outDir, fromDat
 
       doc.registerFont(
         'IBMPlexSans-Regular',
-        path.join(process.cwd(), 'src/main/assets/fonts/IBMPlexSans-Regular.ttf')
+        path.join(process.resourcesPath, 'src/main/assets/fonts/IBMPlexSans-Regular.ttf')
       )
 
       doc.registerFont(
         'NotoSansBengali-Regular',
-        path.join(process.cwd(), 'src/main/assets/fonts/NotoSansBengali-Regular.ttf')
+        path.join(process.resourcesPath, 'src/main/assets/fonts/NotoSansBengali-Regular.ttf')
       )
 
       const stream = fs.createWriteStream(outDir)
