@@ -625,8 +625,6 @@ ipcMain.handle('export-applications', async (event, filters) => {
 })
 
 ipcMain.handle('get-dashboard-stats', async (event) => {
-  const db = getDB()
-
   // Compute fiscal year start & end
   const today = new Date()
   const year = today.getMonth() >= 6 ? today.getFullYear() : today.getFullYear() - 1
