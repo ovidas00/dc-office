@@ -383,7 +383,7 @@ export default function RecordsPage() {
                           exportType
                         })
                         if (res.success) showSuccess('Exported successfully!')
-                        else showError(`Failed to export`)
+                        else showError(`Failed to export${res.message ? `: ${res.message}` : ''}`)
                       } catch (err) {
                         showError('Export error: ' + err.message)
                       } finally {
