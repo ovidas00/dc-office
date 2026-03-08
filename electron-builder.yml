@@ -13,10 +13,6 @@ files:
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 
-extraResources:
-  - from: src/main/assets/fonts
-    to: assets/fonts
-
   # # remove Windows binaries
   # - '!**/node_modules/**/win/x64/**'
   # - '!**/node_modules/**/win/ia32/**'
@@ -28,7 +24,7 @@ extraResources:
   # - '!**/node_modules/**/mac/**'
   # - '!**/node_modules/**/osx/**'
 
-  # # remove Linux binaries
+  # # remove Linux binariesclear
   # - '!**/node_modules/**/linux/**'
   # - '!**/node_modules/**/*.so'
 
